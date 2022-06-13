@@ -1,12 +1,13 @@
 from random import randint
-import timeit
 import math
 
+
+#global values used for storing state of pub_key and priv_key
 public_key=[]
 private_key=[]
 
 def random_prime_in_range(x, y):
-
+    #checking for all posible prime numbers inbetween semi random range
     prime_number_list = []
     for n in range(x, y):
         isPrime = True
@@ -25,8 +26,13 @@ def random_prime_in_range(x, y):
 def calculate_e(n,φ):
     print("Calculating possible e values...")
     r = list(range(2, φ))
+    
+    #caluculating estimated time.
+    #TODO  calculate estimate with one timed loop for better accuracy
     print(f"Estimated time: {math.floor((6.499999999062311e-07 * (0.5 * φ * (φ + 1)))/60)} minutes")
     possibilities = []
+
+    #checking for values that dont have common divisors with n or φ
     for value in r:
         divisors = []
         for i in range(2, min(n, value)+1):
@@ -42,11 +48,15 @@ def calculate_e(n,φ):
 
 def calculate_d(i,e,φ):
     l = []
+
+    #checking for values that fit e*d(modφ)=1
     for i in range(1, i*1000):
         d = e * i
         if d % φ == 1:
             l.append(i)
     if len(l) == 0:
+        #if no value = 1, repeat with more possibilities
+        #TODO Make calculation continue from last number of loop for optimalisation
         calculate_d((i+1),e,φ)
     if len(l) > 1:
         print('e')        
@@ -60,6 +70,7 @@ def calculate_d(i,e,φ):
 
 def encrypt_message():
     global public_key
+
     if len(public_key) == 0:
         print("No public key loaded!")
         menu()
@@ -89,6 +100,7 @@ def create_key():
     public_key=[]
     private_key=[]
     print("Generating key pair......")
+    #TODO Make range setting that can be changed depending on the difficulty of encryption
     range = [1,randint(200, 300)]
     prime_numbers = random_prime_in_range(range[0],range[1])
     p = prime_numbers[randint(0,len(prime_numbers)-1)]
@@ -169,7 +181,7 @@ def menu():
         
 
 def main():
-    print(f"RSA Tool made by Youssef Boulmalf\n\n")
+    print(f"RSA encryption tool made by Youssef Boulmalf\n\n")
     menu()
 
 if __name__ == "__main__":
