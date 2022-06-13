@@ -1,5 +1,6 @@
 from random import randint
 import math
+from art import *
 
 
 #global values used for storing state of pub_key and priv_key
@@ -29,7 +30,7 @@ def calculate_e(n,φ):
     
     #caluculating estimated time.
     #TODO  calculate estimate with one timed loop for better accuracy
-    print(f"Estimated time: {math.floor((6.499999999062311e-07 * (0.5 * φ * (φ + 1)))/60)} minutes")
+    print(f"Estimated time: {math.floor((6.499999999062311e-07 * (0.5 * φ * (φ + 1)))/60)+1} minutes")
     possibilities = []
 
     #checking for values that dont have common divisors with n or φ
@@ -46,25 +47,22 @@ def calculate_e(n,φ):
     return possibilities[randint(0,len(possibilities)-1)]
 
 
-def calculate_d(i,e,φ):
+def calculate_d(e,φ):
     l = []
-
-    #checking for values that fit e*d(modφ)=1
-    for i in range(1, i*1000):
-        d = e * i
-        if d % φ == 1:
-            l.append(i)
-    if len(l) == 0:
-        #if no value = 1, repeat with more possibilities
-        #TODO Make calculation continue from last number of loop for optimalisation
-        calculate_d((i+1),e,φ)
+    b=1
+    while not len(l) >= 1:
+        
+        #checking for values that fit e*d(modφ)=1
+        for i in range(1, b*1000):
+            d = e * i
+            if d % φ == 1:
+                l.append(i)
+        b+=1
     if len(l) > 1:
-        print('e')        
         r = randint(0, len(l)-1)
-        print(r)
         return l[r]
     if len(l) == 1:
-        print('s')
+        print(l)
         return l[0]
     
 
@@ -110,7 +108,9 @@ def create_key():
     e = calculate_e(n,φ)
     public_key.append(e)
     public_key.append(n)
-    d = calculate_d(1,e,φ)
+    d = calculate_d(e,φ)
+    print("d")
+    print(d)
     private_key.append(d)
     private_key.append(n)
     print(f"Your public key is: {public_key}")
@@ -181,6 +181,7 @@ def menu():
         
 
 def main():
+    tprint("PYRSA",font="swwampland",chr_ignore=True)
     print(f"RSA encryption tool made by Youssef Boulmalf\n\n")
     menu()
 
