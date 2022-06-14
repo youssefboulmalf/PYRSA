@@ -2,7 +2,7 @@
 ## A python rsa tool made by Youssef Boulmalf ##
 
 
-![alt text](img/asciArt.png?raw=true "art")
+![alt text](img/asciArt.jpg?raw=true "art")
 
 
 ### About ###
