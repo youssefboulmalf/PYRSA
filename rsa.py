@@ -1,11 +1,17 @@
 from random import randint
 import math
 from art import *
+import os
 
 
 #global values used for storing state of pub_key and priv_key
 public_key=[]
 private_key=[]
+
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def random_prime_in_range(x, y):
     #checking for all posible prime numbers inbetween semi random range
@@ -69,7 +75,7 @@ def encrypt_message():
     global public_key
 
     if len(public_key) == 0:
-        print("No public key loaded!")
+        print("No public key loaded!\n")
         menu()
     value = list(input("Type the message you would like to encrpyt:\n"))
     print(f"Encrpyting...")
@@ -85,13 +91,13 @@ def encrypt_message():
             encrypted_message_list.append(f"-{str((pow(i,public_key[0]))%public_key[1])}")
     
     message = "".join(encrypted_message_list)
-    print(f"Encrypted message:\n{message}")
+    print(f"Encrypted message:\n{message}\n")
     menu()
 
 def decrypt_message():
     global private_key
     if len(private_key) == 0:
-        print("No private key loaded!")
+        print("No private key loaded!\n")
         menu()
     crypt = input("Type the message you would like to decrpyt:\n")
     value = crypt.split("-")
@@ -103,7 +109,7 @@ def decrypt_message():
     for i in stage:
         decrypted_message_list.append(chr((pow(i,private_key[0]))%private_key[1]))
     message = "".join(decrypted_message_list)
-    print(f"Decrypted message:\n{message}")
+    print(f"Decrypted message:\n{message}\n")
     menu()
 
 
@@ -129,18 +135,18 @@ def create_key():
     private_key.append(d)
     private_key.append(n)
     print(f"Your public key is: {public_key}")
-    print(f"Your private key is: {private_key}")
+    print(f"Your private key is: {private_key}\n")
     menu()
     
 
 def load_public_key():
     x = input("first number:")
     if not isinstance(x, int):
-        print("no valid number was supplied")
+        print("no valid number was supplied\n")
         menu()
     y = input("second number:")
     if not isinstance(y, int):
-        print("no valid number was supplied")
+        print("no valid number was supplied\n")
         menu()
     global public_key
     public_key = [x,y]
@@ -149,15 +155,15 @@ def load_public_key():
 
 def load_private_key():
     x = input("first number:")
-    if not isinstance(x, int):
-        print("no valid number was supplied")
+    if not isinstance(int(x), int):
+        print("no valid number was supplied\n")
         menu()
     y = input("second number:")
-    if not isinstance(y, int):
-        print("no valid number was supplied")
+    if not isinstance(int(y), int):
+        print("no valid number was supplied\n")
         menu()
     global private_key
-    private_key= [x,y]
+    private_key= [int(x),int(y)]
     menu()
 
 
@@ -167,31 +173,37 @@ def view_key_pair():
     if not len(public_key) == 0:
         print(f"Public key : {public_key}")
     else:
-        print("Public key not loaded")
+        print("Public key not loaded\n")
     if not len(private_key) == 0:
-        print(f"Private key : {private_key}")
+        print(f"Private key : {private_key}\n")
     else:
-        print("Private key not loaded")
+        print("Private key not loaded\n")
     menu()
     
 
 def menu():
-    print(f"Options:\n1. Generate key pair\n2. Load public key\n3. Load public key\n4. Encrypt message\n5. Decrypt message\n6. View key pair\n" )
+    print(f"Options:\n1. Generate key pair\n2. Load public key\n3. Load private key\n4. Encrypt message\n5. Decrypt message\n6. View key pair\n" )
     choise = input("Choose an option:")
     if not choise.isdigit():
         print("No valid option was selected")
         menu()
     if choise == "1":
+        clear()
         create_key()
     if choise == "2":
+        clear()
         load_public_key()
     if choise == "3":
+        clear()
         load_private_key()
     if choise == "4":
+        clear()
         encrypt_message()
     if choise == "5":
+        clear()
         decrypt_message()
     if choise == "6":
+        clear()
         view_key_pair()
         
 
