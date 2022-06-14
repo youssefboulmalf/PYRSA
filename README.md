@@ -1,10 +1,17 @@
 # PYRSA #
 ## A python rsa tool made by Youssef Boulmalf ##
 
+
+![alt text](img/asciArt.png?raw=true "art")
+
+
 ### About ###
 PYRSA is a rsa key encryption tool that lets the user create rsa key pairs, encrypt messages, decrpyt messages and load in key pairs. I started this project to learn more about encryption and develop my python skills.
 
 Special thanks tho Eddie Woo and his explination video of RSA wich helped me create this project. I'l leave the link to his video below.
+
+
+
 
 ### Installation ###
 
