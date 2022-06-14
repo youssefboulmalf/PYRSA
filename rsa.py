@@ -62,7 +62,6 @@ def calculate_d(e,φ):
         r = randint(0, len(l)-1)
         return l[r]
     if len(l) == 1:
-        print(l)
         return l[0]
     
 
@@ -72,10 +71,21 @@ def encrypt_message():
     if len(public_key) == 0:
         print("No public key loaded!")
         menu()
-    value = int(input("Type the message you would like to encrpyt:\n"))
+    value = list(input("Type the message you would like to encrpyt:\n"))
     print(f"Encrpyting...")
-    encrypted_message =  (pow(value,public_key[0]))%public_key[1]
-    print(f"Encrypted message:\n{encrypted_message}")
+    stage = []
+    for i in value:
+        stage.append(ord(i))
+    encrypted_message_list = []
+    for index, i in enumerate(stage):
+        # first int can't start with a "-"
+        if index == 0:
+            encrypted_message_list.append(f"{str((pow(i,public_key[0]))%public_key[1])}")
+        else:
+            encrypted_message_list.append(f"-{str((pow(i,public_key[0]))%public_key[1])}")
+    
+    message = "".join(encrypted_message_list)
+    print(f"Encrypted message:\n{message}")
     menu()
 
 def decrypt_message():
@@ -83,10 +93,17 @@ def decrypt_message():
     if len(private_key) == 0:
         print("No private key loaded!")
         menu()
-    value = int(input("Type the message you would like to decrpyt:\n"))
+    crypt = input("Type the message you would like to decrpyt:\n")
+    value = crypt.split("-")
     print(f"Decrypting....")
-    decrypted_message = (pow(value,private_key[0]))%private_key[1]
-    print(f"Decrypted message:\n{decrypted_message}")
+    stage = []
+    for i in value:
+            stage.append(int(i))
+    decrypted_message_list = []
+    for i in stage:
+        decrypted_message_list.append(chr((pow(i,private_key[0]))%private_key[1]))
+    message = "".join(decrypted_message_list)
+    print(f"Decrypted message:\n{message}")
     menu()
 
 
@@ -109,8 +126,6 @@ def create_key():
     public_key.append(e)
     public_key.append(n)
     d = calculate_d(e,φ)
-    print("d")
-    print(d)
     private_key.append(d)
     private_key.append(n)
     print(f"Your public key is: {public_key}")
