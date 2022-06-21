@@ -141,15 +141,15 @@ def create_key():
 
 def load_public_key():
     x = input("first number:")
-    if not isinstance(x, int):
+    if not isinstance(int(x), int):
         print("no valid number was supplied\n")
         menu()
     y = input("second number:")
-    if not isinstance(y, int):
+    if not isinstance(int(y), int):
         print("no valid number was supplied\n")
         menu()
     global public_key
-    public_key = [x,y]
+    public_key= [int(x),int(y)]
     menu()
 
 

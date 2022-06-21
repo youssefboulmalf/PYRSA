@@ -15,7 +15,7 @@ Special thanks tho Eddie Woo and his explination video of RSA wich helped me cre
 
 ### Installation ###
 
-to install and use PYRSA simple clone the repo and run the file
+to install and use PYRSA simply clone the repo and run the file
 
 ```git clone https://github.com/youssefboulmalf/PYRSA.git ./ ```
 
