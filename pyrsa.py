@@ -50,7 +50,10 @@ def calculate_e(n,φ):
                 divisors.append(i)
         if not len(divisors)  > 0:
             possibilities.append(value)
-    return possibilities[randint(0,len(possibilities)-1)]
+    try:
+        return possibilities[randint(0,len(possibilities)-1)]
+    except:
+        create_key()
 
 
 def calculate_d(e,φ):
